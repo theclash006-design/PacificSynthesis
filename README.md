@@ -196,12 +196,39 @@ cmake --build build --config Release
 
 ## ライセンス
 
-GNU General Public License v3.0
+**GNU Affero General Public License v3.0 (AGPLv3)**
 
 詳細は [LICENSE](./LICENSE) と [COPYING.md](./COPYING.md) を参照してください。
 
-このプラグインを商用配布する場合、JUCE Indie / Pro ライセンスの購入が
-追加で必要になります (https://juce.com/get-juce/)。
+### なぜ AGPLv3?
+
+Pacific Synthesis は JUCE 8 フレームワークをベースにしています。
+JUCE 8 は AGPLv3 または商用ライセンスのデュアルライセンスで提供されており、
+本プロジェクトは AGPLv3 の条件で使用しています。そのため、プラグイン全体も
+同じく **AGPLv3** で配布されます。
+
+### AGPLv3 で許可されること
+
+- ✅ 個人利用・研究・学習
+- ✅ 改造 (fork) して自分専用に使う
+- ✅ 改造版を再配布 (ただし改造した部分も AGPLv3 でソース公開必須)
+- ✅ 楽曲制作に使って商用リリース (楽曲は AGPLv3 の対象外)
+
+### 追加の商用ライセンスが必要な場合
+
+以下のようなケースでは JUCE の商用ライセンス (Personal / Indie / Pro)
+の購入が必要です:
+
+- プラグイン自体を **有料販売** して年 20,000 USD 超の収益を得たい場合
+- プラグインを **ソース非公開** で配布したい場合
+- AGPLv3 の copyleft (改造版もソース公開必須) を回避したい場合
+
+詳細は https://juce.com/get-juce/ 参照。
+
+### VST3 SDK について
+
+VST3 SDK も GPLv3 (AGPLv3 と互換) または商用の Steinberg VST3 ライセンス
+で提供されており、本プロジェクトでは GPLv3 の条件で使用しています。
 
 ---
 
