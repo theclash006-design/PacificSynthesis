@@ -1,0 +1,21 @@
+# Build artifacts
+build/
+build-ios/
+build-win/
+*.dSYM/
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.xcworkspace/xcuserdata/
+
+# Preset files (お好みで)
+*.preset

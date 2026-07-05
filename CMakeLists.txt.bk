@@ -1,0 +1,59 @@
+cmake_minimum_required(VERSION 3.22)
+
+project(PacificSynthesis VERSION 1.0.0 LANGUAGES C CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "macOS deployment target")
+
+# JUCEへのパス。`../JUCE` にcloneしてあればそのまま動きます。
+# 別の場所にある場合は `cmake -B build -DJUCE_PATH=/path/to/JUCE` で指定してください。
+if(NOT DEFINED JUCE_PATH)
+    set(JUCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../JUCE" CACHE PATH "Path to JUCE")
+endif()
+
+if(NOT EXISTS "${JUCE_PATH}/CMakeLists.txt")
+    message(FATAL_ERROR
+        "JUCE not found at ${JUCE_PATH}.\n"
+        "Run: git clone --depth 1 https://github.com/juce-framework/JUCE ${JUCE_PATH}")
+endif()
+
+add_subdirectory(${JUCE_PATH} JUCE EXCLUDE_FROM_ALL)
+
+juce_add_plugin(PacificSynthesis
+    COMPANY_NAME              "Coast Machine"
+    BUNDLE_ID                 com.coastmachine.pacificsynthesis
+    PLUGIN_MANUFACTURER_CODE  Csmc
+    PLUGIN_CODE               Pcfs
+    FORMATS                   VST3 AU Standalone
+    PRODUCT_NAME              "Pacific Synthesis"
+    IS_SYNTH                  TRUE
+    NEEDS_MIDI_INPUT          TRUE
+    NEEDS_MIDI_OUTPUT         FALSE
+    EDITOR_WANTS_KEYBOARD_FOCUS TRUE
+    COPY_PLUGIN_AFTER_BUILD   TRUE
+)
+
+target_sources(PacificSynthesis PRIVATE
+    Source/PluginProcessor.cpp
+    Source/PluginEditor.cpp
+)
+
+target_include_directories(PacificSynthesis PRIVATE Source)
+
+target_compile_definitions(PacificSynthesis PRIVATE
+    JUCE_WEB_BROWSER=0
+    JUCE_USE_CURL=0
+    JUCE_VST3_CAN_REPLACE_VST2=0
+    JUCE_DISPLAY_SPLASH_SCREEN=0
+)
+
+target_link_libraries(PacificSynthesis PRIVATE
+    juce::juce_audio_utils
+    juce::juce_dsp
+    juce::juce_audio_processors
+    juce::juce_audio_plugin_client
+    juce::juce_recommended_config_flags
+    juce::juce_recommended_lto_flags
+    juce::juce_recommended_warning_flags
+)
